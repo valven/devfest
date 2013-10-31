@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">DevFest13</string>
+    
+    <string name="title_main">DevFest</string>
+    <string name="title_speaker_sessions">Speaker Sessions</string>
+    
+    <string name="about">About</string>
+    <string name="sessions">Sessions</string>
+    <string name="speakers">Speakers</string>
+    <string name="transportation">Transportation</string>
+    <string name="sponsors">Sponsors</string>
+    <string name="favourites">Favourites</string>
+    
+    <string name="hall">Hall %1$s</string>
+    <string name="tba">To be announced</string>
+    <string name="no_favs">You don\'t have any favourites. You can add a session as favourite by clicking + icon.</string>
+    
+    <string name="added_calendar">\"%1$s\" has been added to calendar.</string>
+    <string name="removed_calendar">\"%1$s\" has been removed from calendar.</string>
+    
+    <string name="devfest_istanbul">DevFest Istanbul</string>
+    <string name="devfest_ankara">DevFest Ankara</string>
+    <string name="devfest_eskisehir">DevFest Eskisehir</string>
+    
+    <string name="no_connection">You must have Internet connection to use the application.</string>
+    <string name="city_connection">You must have Internet connection to switch this city.</string>
+
+</resources>

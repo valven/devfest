@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
+    <style name="MainButton">
+        <item name="android:paddingTop">4dp</item>
+        <item name="android:textColor">@color/text</item>
+        <item name="android:textSize">25sp</item>
+        <item name="android:gravity">center</item>
+    </style>
+    
+    <style name="MainButtonLarge" parent="MainButton">
+        <item name="android:textSize">25sp</item>
+    </style>
+</resources>

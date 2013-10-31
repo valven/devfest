@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">DevFest13</string>
+    
+    <string name="title_main">DevFest</string>
+    <string name="title_speaker_sessions">Konuşmacı Oturumları</string>
+    
+    <string name="about">Hakkında</string>
+    <string name="sessions">Oturumlar</string>
+    <string name="speakers">Konuşmacılar</string>
+    <string name="transportation">Ulaşım</string>
+    <string name="sponsors">Sponsorlar</string>
+    <string name="favourites">Favoriler</string>
+    
+    <string name="hall">Salon %1$s</string>
+    <string name="tba">Açıklanacak</string>
+    <string name="no_favs">Favorilere oturum eklenmemiş. Oturum bilgilerinde + simgesine basarak ekleyebilirsiniz.</string>
+    
+    <string name="added_calendar">\"%1$s\" takvime eklendi.</string>
+    <string name="removed_calendar">\"%1$s\" takvimden kaldırıldı.</string>
+    
+    <string name="devfest_istanbul">DevFest Istanbul</string>
+    <string name="devfest_ankara">DevFest Ankara</string>
+    <string name="devfest_eskisehir">DevFest Eskisehir</string>
+    
+    <string name="no_connection">Uygulamayı kullanabilmek için Internet bağlantınız olması gerekiyor.</string>
+    <string name="city_connection">Bu şehri seçebilmek için Internet bağlantınız olması gerekiyor.</string>
+
+</resources>

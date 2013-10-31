@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="header_bg">#dcdcdc</color>
+    <color name="header_split">#bfbfbf</color>
+    <color name="header_text">#3a3a3c</color>
+    
+    <color name="text">#dcdcdc</color>
+    <color name="splitter">#545455</color>
+    
+    <color name="city_deactive">#555555</color>
+    <color name="city_active">#dcdcdc</color>
+</resources>

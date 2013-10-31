@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res/com.valven.devfest"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/list_item"
+    android:orientation="horizontal"
+    android:paddingBottom="8dp"
+    android:paddingTop="8dp" >
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:paddingLeft="8dp"
+        android:paddingRight="8dp" >
+
+        <com.valven.devfest.component.CustomTextView
+            android:id="@+id/start_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/text"
+            android:textSize="21sp"
+            app:customFont="Ubuntu-R.ttf" />
+
+        <com.valven.devfest.component.CustomTextView
+            android:id="@+id/end_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/text"
+            android:textSize="21sp"
+            app:customFont="Ubuntu-R.ttf" />
+    </LinearLayout>
+
+    <LinearLayout android:id="@+id/text_wrapper"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:gravity="left|center_vertical"
+        android:orientation="vertical" >
+
+        <com.valven.devfest.component.CustomTextView
+            android:id="@+id/title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/text"
+            android:textSize="21sp"
+            app:customFont="Ubuntu-B.ttf" />
+        
+        <com.valven.devfest.component.CustomTextView
+            android:id="@+id/speaker"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/text"
+            android:textSize="13sp"
+            android:maxLines="2"
+            android:ellipsize="end"
+            app:customFont="Ubuntu-B.ttf" />
+
+        <com.valven.devfest.component.CustomTextView
+            android:id="@+id/info"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/text"
+            android:textSize="13sp"
+            android:maxLines="2"
+            android:ellipsize="end"
+            app:customFont="Ubuntu-R.ttf" />
+
+        <com.valven.devfest.component.CustomTextView
+            android:id="@+id/location"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/text"
+            android:textSize="16sp"
+            app:customFont="Ubuntu-B.ttf" />
+    </LinearLayout>
+
+    <ImageView android:id="@+id/add"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:background="@drawable/button_bg"
+        android:padding="8dp"
+        android:scaleType="fitStart"
+        android:src="@drawable/plus" />
+
+</LinearLayout>
