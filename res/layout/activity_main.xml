@@ -153,7 +153,7 @@
             style="@style/FooterButton"
             android:layout_width="48dp"
             android:layout_height="wrap_content"
-            android:text="06"
+            android:text="@string/ankara"
             app:customFont="Ubuntu-B.ttf" />
 
         <com.valven.devfest.component.CustomButton
@@ -161,7 +161,7 @@
             style="@style/FooterButton"
             android:layout_width="48dp"
             android:layout_height="wrap_content"
-            android:text="26"
+            android:text="@string/eskisehir"
             app:customFont="Ubuntu-B.ttf" />
 
         <com.valven.devfest.component.CustomButton
@@ -169,7 +169,7 @@
             style="@style/FooterButton"
             android:layout_width="48dp"
             android:layout_height="wrap_content"
-            android:text="34"
+            android:text="@string/istanbul"
             app:customFont="Ubuntu-B.ttf" />
     </LinearLayout>
 

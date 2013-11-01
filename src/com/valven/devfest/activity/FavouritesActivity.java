@@ -1,5 +1,10 @@
 package com.valven.devfest.activity;
 
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.Date;
+import java.util.List;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -61,8 +66,17 @@ public class FavouritesActivity extends BaseActivity {
 
 		ListView list = (ListView) findViewById(R.id.favourite_list);
 		if (list.getAdapter() == null) {
+			List<Session> sessions = Favourites.load(this);
+			Collections.sort(sessions, new Comparator<Session>(){
+				   public int compare(Session a, Session b){
+				      Date d1 = a.getBegin();
+				      Date d2 = b.getBegin();
+				      return d1.compareTo(d2);
+				   }
+				});
+			
 			final SessionAdapter adapter = new SessionAdapter(
-					getApplicationContext(), Favourites.load(this));
+					getApplicationContext(), sessions);
 			adapter.setListener(new OnClickListener() {
 				@Override
 				public void onClick(View v) {

@@ -113,15 +113,23 @@ public class MainActivity extends BaseActivity implements Callback {
 	private OnClickListener mSelectListener = new OnClickListener() {
 		@Override
 		public void onClick(View v) {
-			String city = ((Button) v).getText().toString();
+			Button btn = (Button)v;
+			String city;
+			if (getString(R.string.eskisehir).equals(btn.getText())){
+				city = "26";
+			} else if (getString(R.string.ankara).equals(btn.getText())){
+				city = "06";
+			} else {
+				city = "34";
+			}
 			if (canChangeCity(city)){
 				if (mSelected != null) {
 					deselectCity(mSelected);
 					mSelected = null;
 				}
 				
-				fetchData(city);
 				selectCity(city);
+				fetchData(city);
 			} else {
 				new AlertDialog.Builder(MainActivity.this)
 						.setMessage(R.string.city_connection)

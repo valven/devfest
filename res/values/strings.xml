@@ -13,6 +13,10 @@
     <string name="sponsors">Sponsors</string>
     <string name="favourites">Favourites</string>
     
+    <string name="ankara">06\nAnk</string>
+    <string name="eskisehir">26\nEsk</string>
+    <string name="istanbul">34\nIst</string>
+    
     <string name="hall">Hall %1$s</string>
     <string name="tba">To be announced</string>
     <string name="no_favs">You don\'t have any favourites. You can add a session as favourite by clicking + icon.</string>
