@@ -1,30 +1,29 @@
 package com.valven.devfest.activity;
 
-import android.content.Intent;
+import java.util.List;
+
+import android.content.Context;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemClickListener;
-import android.widget.BaseAdapter;
-import android.widget.ListView;
+import android.widget.TabHost;
+import android.widget.TabHost.TabContentFactory;
+import android.widget.TabHost.TabSpec;
 import android.widget.TextView;
 
 import com.valven.devfest.DevFest;
 import com.valven.devfest.R;
-import com.valven.devfest.adapter.SessionAdapter;
+import com.valven.devfest.adapter.HallPagerAdapter;
 import com.valven.devfest.helper.ActivityHelper;
-import com.valven.devfest.model.Session;
+import com.valven.devfest.model.Event;
+import com.valven.devfest.model.Hall;
 
 public class SessionsActivity extends BaseActivity {
 
-	private HallPagerAdapter mDemoCollectionPagerAdapter;
-	private ViewPager mViewPager;
+	private boolean mTabbed;
+	private TabHost mTabHost;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -34,111 +33,84 @@ public class SessionsActivity extends BaseActivity {
 		if (!new ActivityHelper(this).onCreate()) {
 			return;
 		}
-		
-		View view = LayoutInflater.from(this).inflate(
-				R.layout.activity_sessions, null);
 
 		TextView title = (TextView) findViewById(R.id.title);
 		title.setText(R.string.sessions);
 
+		View view;
+		if (DevFest.DATA.getHalls() != null
+				|| DevFest.DATA.getEvents().size() < 2) {
+			mTabbed = false;
+			view = LayoutInflater.from(this).inflate(
+					R.layout.activity_sessions, null);
+		} else {
+			mTabbed = true;
+			view = LayoutInflater.from(this).inflate(
+					R.layout.activity_sessions_tabbed, null);
+		}
+
 		((ViewGroup) findViewById(R.id.content)).addView(view);
-	}
+    }
+
 
 	@Override
 	public void onPostCreate(Bundle savedInstanceState) {
 		super.onPostCreate(savedInstanceState);
-		// ViewPager and its adapters use support library
-		// fragments, so use getSupportFragmentManager.
-		mDemoCollectionPagerAdapter = new HallPagerAdapter(
-				getSupportFragmentManager());
-		mViewPager = (ViewPager) findViewById(R.id.pager);
-		mViewPager.setAdapter(mDemoCollectionPagerAdapter);
-		
-		if (DevFest.DATA.getHalls().size()<2){
-			findViewById(R.id.pager_title_strip).setVisibility(View.GONE);
-		}
-	}
+		if (mTabbed) {
+			initTabs();
+		} else {
+			List<Hall> halls = DevFest.DATA.getHalls();
+			if (halls==null){
+				halls = DevFest.DATA.getEvents().get(0).getHalls();
+			}
+			// ViewPager and its adapters use support library
+			// fragments, so use getSupportFragmentManager.
+			HallPagerAdapter pagerAdapter = new HallPagerAdapter(getSupportFragmentManager(), halls);
+			ViewPager viewPager = (ViewPager) findViewById(R.id.pager);
+			viewPager.setAdapter(pagerAdapter);
 
-	// Since this is an object collection, use a FragmentStatePagerAdapter,
-	// and NOT a FragmentPagerAdapter.
-	public class HallPagerAdapter extends FragmentStatePagerAdapter {
-		public HallPagerAdapter(FragmentManager fm) {
-			super(fm);
-		}
-
-		@Override
-		public Fragment getItem(int i) {
-			Fragment fragment = new SessionListFragment();
-			Bundle args = new Bundle();
-			// Our object is just an integer
-			args.putInt(SessionListFragment.ARG_OBJECT, i);
-			fragment.setArguments(args);
-			return fragment;
-		}
-
-		@Override
-		public int getCount() {
-			return DevFest.DATA.getHalls().size();
-		}
-
-		@Override
-		public CharSequence getPageTitle(int position) {
-			return DevFest.DATA.getHalls().get(position).getName();
-		}
-	}
-
-	// Instances of this class are fragments representing a single
-	// object in our collection.
-	public static class SessionListFragment extends Fragment {
-		public static final String ARG_OBJECT = "object";
-
-		private int mPosition;
-
-		@Override
-		public View onCreateView(LayoutInflater inflater, ViewGroup container,
-				Bundle savedInstanceState) {
-			// The last two arguments ensure LayoutParams are inflated
-			// properly.
-			View rootView = inflater.inflate(R.layout.fragment_hall, container,
-					false);
-			Bundle args = getArguments();
-			mPosition = args.getInt(ARG_OBJECT);
-
-			ListView list = (ListView) rootView.findViewById(R.id.session_list);
-			list.setOnItemClickListener(new OnItemClickListener() {
-				@Override
-				public void onItemClick(AdapterView<?> list, View view,
-						int position, long id) {
-					Session session = ((SessionAdapter) list.getAdapter())
-							.getItem(position);
-					if (session.isDisabled())
-						return;
-					Intent intent = new Intent(getActivity(),
-							SessionDetailActivity.class);
-					Bundle extras = new Bundle();
-					extras.putParcelable(SessionDetailActivity.ARG_DATA,
-							session);
-					intent.putExtras(extras);
-					startActivity(intent);
-				}
-			});
-			return rootView;
-		}
-
-		@Override
-		public void onResume() {
-			super.onResume();
-
-			ListView list = (ListView) getView()
-					.findViewById(R.id.session_list);
-			if (list.getAdapter() == null) {
-				SessionAdapter adapter = new SessionAdapter(getActivity(),
-						DevFest.DATA.getHalls().get(mPosition).getSessions());
-				list.setAdapter(adapter);
-			} else {
-				((BaseAdapter) list.getAdapter()).notifyDataSetChanged();
+			if (halls.size() < 2) {
+				findViewById(R.id.pager_title_strip).setVisibility(View.GONE);
 			}
 		}
+	}
+
+	protected void initTabs() {
+		mTabHost = (TabHost) findViewById(R.id.tabhost);
+		mTabHost.setup();
+
+		int i=0;
+		LayoutInflater inflater = LayoutInflater.from(this);
+		for (Event event:DevFest.DATA.getEvents()){
+			ViewPager viewPager = (ViewPager)inflater.inflate(R.layout.activity_sessions,
+					null);
+			viewPager.setId(++i);
+			HallPagerAdapter pagerAdapter = new HallPagerAdapter(
+					getSupportFragmentManager(), event.getHalls());
+			viewPager.setAdapter(pagerAdapter);
+			setupTab(mTabHost, viewPager,
+					event.getName());
+		}
+
+	}
+
+	private static void setupTab(TabHost mTabHost, final View view, final String tag) {
+		View tabview = createTabView(mTabHost.getContext(), tag);
+		TabSpec setContent = mTabHost.newTabSpec(tag).setIndicator(tabview)
+				.setContent(new TabContentFactory() {
+					public View createTabContent(String tag) {
+						return view;
+					}
+				});
+		mTabHost.addTab(setContent);
+	}
+
+	private static View createTabView(final Context context, final String text) {
+		View view = LayoutInflater.from(context)
+				.inflate(R.layout.tabs_bg, null);
+		TextView tv = (TextView) view.findViewById(R.id.tabsText);
+		tv.setText(text);
+		return view;
 	}
 
 }

@@ -39,6 +39,5 @@ public class DevFest extends Application {
 			} catch (Exception e) {
 			}
 		}
-		
 	}
 }

@@ -17,6 +17,7 @@ import android.util.Log;
 import com.valven.devfest.DevFest;
 
 public class Utils {
+	
 	private static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat(
 			"EEE, dd MMM yyyy HH:mm:ss Z", Locale.ENGLISH);
 
@@ -29,7 +30,7 @@ public class Utils {
 		else
 			return PRINT_DATE_FORMAT.format(time);
 	}
-	
+
 	public static Date parseDate(String str){
 		Date date=null;
 		try {

@@ -29,7 +29,7 @@ public class MainActivity extends BaseActivity implements Callback {
 	private AsyncTask<Object, Void, String> mLoader;
 	private TransparentProgressDialog mProgressDialog;
 	private Button mSelected;
-	
+
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -100,9 +100,7 @@ public class MainActivity extends BaseActivity implements Callback {
 		});
 
 		findViewById(R.id.button_ankara).setOnClickListener(mSelectListener);
-		// findViewById(R.id.button_eskisehir).setOnClickListener(mSelectListener);
-		// TODO complete data, enable button
-		findViewById(R.id.button_eskisehir).setEnabled(false);
+		findViewById(R.id.button_eskisehir).setOnClickListener(mSelectListener);
 		findViewById(R.id.button_istanbul).setOnClickListener(mSelectListener);
 
 		String city = Utils.getSelectedCity(getApplicationContext());
@@ -113,21 +111,21 @@ public class MainActivity extends BaseActivity implements Callback {
 	private OnClickListener mSelectListener = new OnClickListener() {
 		@Override
 		public void onClick(View v) {
-			Button btn = (Button)v;
+			Button btn = (Button) v;
 			String city;
-			if (getString(R.string.eskisehir).equals(btn.getText())){
+			if (getString(R.string.eskisehir).equals(btn.getText())) {
 				city = "26";
-			} else if (getString(R.string.ankara).equals(btn.getText())){
+			} else if (getString(R.string.ankara).equals(btn.getText())) {
 				city = "06";
 			} else {
 				city = "34";
 			}
-			if (canChangeCity(city)){
+			if (canChangeCity(city)) {
 				if (mSelected != null) {
 					deselectCity(mSelected);
 					mSelected = null;
 				}
-				
+
 				selectCity(city);
 				fetchData(city);
 			} else {
@@ -138,15 +136,14 @@ public class MainActivity extends BaseActivity implements Callback {
 			}
 		}
 	};
-	
-	private boolean canChangeCity(String city){
-		if (Utils.checkInternetConnection(getApplicationContext())){
+
+	private boolean canChangeCity(String city) {
+		if (Utils.checkInternetConnection(getApplicationContext())) {
 			return true;
 		}
-		String key = DevFest.ARG_DATA+"_"+city;
-		String data = Utils.getSharedPreference(this, key,
-				null);
-		if (data == null){
+		String key = DevFest.ARG_DATA + "_" + city;
+		String data = Utils.getSharedPreference(this, key, null);
+		if (data == null) {
 			return false;
 		} else {
 			return true;
@@ -154,38 +151,39 @@ public class MainActivity extends BaseActivity implements Callback {
 	}
 
 	private void selectCity(String city) {
-		Button btn=null;
+		Button btn = null;
 		if ("26".equals(city)) {
-			btn = (Button)findViewById(R.id.button_eskisehir);
+			btn = (Button) findViewById(R.id.button_eskisehir);
 			((TextView) findViewById(R.id.title))
-			.setText(R.string.devfest_eskisehir);
+					.setText(R.string.devfest_eskisehir);
 		} else if ("06".equals(city)) {
-			btn = (Button)findViewById(R.id.button_ankara);
+			btn = (Button) findViewById(R.id.button_ankara);
 			((TextView) findViewById(R.id.title))
 					.setText(R.string.devfest_ankara);
 		} else {
-			btn = (Button)findViewById(R.id.button_istanbul);
+			btn = (Button) findViewById(R.id.button_istanbul);
 			((TextView) findViewById(R.id.title))
-			.setText(R.string.devfest_istanbul);
+					.setText(R.string.devfest_istanbul);
 		}
 		btn.setBackgroundResource(R.drawable.sehir_bg);
 		btn.setTextColor(getResources().getColor(R.color.city_active));
 		Utils.setSharedPreference(getApplicationContext(), DevFest.ARG_CITY,
 				city);
-		
+
 		mSelected = btn;
-		
+
 	}
-	
+
 	private void deselectCity(Button btn) {
 		btn.setBackgroundResource(0);
 		btn.setTextColor(getResources().getColor(R.color.city_deactive));
 	}
 
 	private void fetchData(String city) {
-		mProgressDialog = TransparentProgressDialog.show(this, null, null, true, true);
+		mProgressDialog = TransparentProgressDialog.show(this, null, null,
+				true, true);
 		mProgressDialog.show();
-		
+
 		mLoader = new DataTask(this, this);
 		String path = Utils.getFilePath(DataTask.DATA_URL, city);
 		Log.d("path", path);
@@ -194,14 +192,14 @@ public class MainActivity extends BaseActivity implements Callback {
 
 	@Override
 	public void handleResponse(JSONObject response) {
-		if (mProgressDialog!=null){
-			try{
+		if (mProgressDialog != null) {
+			try {
 				mProgressDialog.dismiss();
-			}catch(Throwable t){
+			} catch (Throwable t) {
 			}
 			mProgressDialog = null;
 		}
 		DevFest.DATA = new AppData(getApplicationContext(), response);
-		
+
 	}
 }

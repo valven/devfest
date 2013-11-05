@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.valven.devfest.component.CustomTextView 
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res/com.valven.devfest"
+    android:id="@+id/tabsText"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@drawable/tab_bg_selector"
+    android:gravity="center"
+    android:paddingTop="16dp"
+    android:paddingBottom="16dp"
+    android:textColor="@color/text"
+    android:textSize="18sp"
+    app:customFont="Ubuntu-B.ttf" />

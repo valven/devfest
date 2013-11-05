@@ -7,40 +7,38 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.valven.devfest.R;
-import com.valven.devfest.model.Speaker;
-import com.valven.devfest.util.ImageLoader;
+import com.valven.devfest.model.Session;
+import com.valven.devfest.util.Utils;
 
-public class SpeakerAdapter extends BaseAdapter{
+public class EventAdapter extends BaseAdapter{
 
-	private List<Speaker> mData;
+	private List<Session> mData;
 
 	private Context mContext;
 
 	private LayoutInflater mInflater;
-
-	private class ViewHolder {
-		private TextView name;
-		private TextView info;
-		private ImageView image;
+	
+	static class ViewHolder {
+		TextView startDate;
+		TextView title;
 	}
 
-	public SpeakerAdapter(Context context, List<Speaker> data) {
+	public EventAdapter(Context context, List<Session> data) {
 		mContext = context;
 		mData = data;
 		mInflater = LayoutInflater.from(mContext);
 	}
-	
+
 	@Override
 	public int getCount() {
 		return mData.size();
 	}
 
 	@Override
-	public Speaker getItem(int position) {
+	public Session getItem(int position) {
 		return mData.get(position);
 	}
 
@@ -54,21 +52,17 @@ public class SpeakerAdapter extends BaseAdapter{
 		ViewHolder holder = null;
 		View view = convertView;
 		if (view == null){
-			view = mInflater.inflate(R.layout.speaker_row, null);
+			view = mInflater.inflate(R.layout.event_row, null);
 			holder = new ViewHolder();
-			holder.image = (ImageView)view.findViewById(R.id.image);
-			holder.info = (TextView)view.findViewById(R.id.info);
-			holder.name = (TextView)view.findViewById(R.id.name);
+			holder.startDate = (TextView)view.findViewById(R.id.start_date);
+			holder.title = (TextView)view.findViewById(R.id.title);
 			view.setTag(holder);
 		} else {
 			holder = (ViewHolder)view.getTag();
-			holder.image.setImageDrawable(null);
 		}
-		Speaker data = getItem(position);
-		holder.name.setText(data.getName());
-		holder.info.setText(data.getInfo());
-		
-		ImageLoader.getInstance().displayImage(data.getImage(), holder.image);
+		final Session data = getItem(position);
+		holder.startDate.setText(Utils.getTime(data.getBegin()));
+		holder.title.setText(data.getTitle());
 		
 		return view;
 	}

@@ -28,7 +28,7 @@ public class SplashActivity extends Activity implements Callback {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_splash);
-
+		
 		if (DevFest.DATA == null) {
 			if (!Utils.checkInternetConnection(this)) {
 				String data = loadJSONFromCache();
