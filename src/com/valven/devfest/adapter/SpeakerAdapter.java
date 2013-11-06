@@ -22,7 +22,7 @@ public class SpeakerAdapter extends BaseAdapter{
 
 	private LayoutInflater mInflater;
 
-	private class ViewHolder {
+	private static class ViewHolder {
 		private TextView name;
 		private TextView info;
 		private ImageView image;
@@ -49,28 +49,47 @@ public class SpeakerAdapter extends BaseAdapter{
 		return position;
 	}
 
-	@Override
-	public View getView(int position, View convertView, ViewGroup parent) {
-		ViewHolder holder = null;
-		View view = convertView;
-		if (view == null){
-			view = mInflater.inflate(R.layout.speaker_row, null);
-			holder = new ViewHolder();
-			holder.image = (ImageView)view.findViewById(R.id.image);
-			holder.info = (TextView)view.findViewById(R.id.info);
-			holder.name = (TextView)view.findViewById(R.id.name);
-			view.setTag(holder);
-		} else {
-			holder = (ViewHolder)view.getTag();
-			holder.image.setImageDrawable(null);
-		}
-		Speaker data = getItem(position);
-		holder.name.setText(data.getName());
-		holder.info.setText(data.getInfo());
-		
-		ImageLoader.getInstance().displayImage(data.getImage(), holder.image);
-		
-		return view;
+//	@Override
+//	public View getView(int position, View convertView, ViewGroup parent) {
+//		ViewHolder holder = null;
+//		View view = convertView;
+//		if (view == null){
+//			view = mInflater.inflate(R.layout.speaker_row, null);
+//			holder = new ViewHolder();
+//			holder.image = (ImageView)view.findViewById(R.id.image);
+//			holder.info = (TextView)view.findViewById(R.id.info);
+//			holder.name = (TextView)view.findViewById(R.id.name);
+//			view.setTag(holder);
+//		} else {
+//			holder = (ViewHolder)view.getTag();
+//			holder.image.setImageDrawable(null);
+//		}
+//		Speaker data = getItem(position);
+//		holder.name.setText(data.getName());
+//		holder.info.setText(data.getInfo());
+//		
+//		ImageLoader.getInstance().displayImage(data.getImage(), holder.image);
+//		
+//		return view;
+//	}
+	
+public View getView(int position, View convertView, ViewGroup parent) {
+	ViewHolder holder = null;
+	View view = convertView;
+	if (view == null){
+		view = mInflater.inflate(R.layout.speaker_row, null);
+		holder = new ViewHolder();
+		holder.info = (TextView)view.findViewById(R.id.info);
+		holder.name = (TextView)view.findViewById(R.id.name);
+		view.setTag(holder);
+	} else {
+		holder = (ViewHolder)view.getTag();
 	}
+	Speaker data = getItem(position);
+	holder.name.setText(data.getName());
+	holder.info.setText(data.getInfo());
+	
+	return view;
+}
 
 }
