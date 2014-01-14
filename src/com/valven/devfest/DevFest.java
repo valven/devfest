@@ -8,6 +8,7 @@ import com.valven.devfest.model.AppData;
 import com.valven.devfest.model.Favourites;
 import com.valven.devfest.util.ImageLoader;
 
+//VALVEN'de calismak/staj yapmak istiyorsan CV'ni ik [at] valven.com adresine ilani gordugun yeri belirterek gonder
 public class DevFest extends Application {
 	
 	public static AppData DATA;
